@@ -8,7 +8,7 @@ import { Keg } from './keg.model';
     <div class="container">
       <keg-new-component *ngIf="false" (formSubmitSender)="addKeg($event)"></keg-new-component>
       <keg-edit-component [childSelectedKeg]="selectedKeg" (doneClickSender)="editKegDone()"></keg-edit-component>
-      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)"></keg-list-component>
+      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourKeg($event)"></keg-list-component>
     </div>
   `
 })
@@ -23,10 +23,13 @@ export class AppComponent {
   addKeg(keg : Keg) {
     this.masterKegList.push(keg);
   }
-  editKeg(keg: Keg) {
+  editKeg(keg : Keg) {
     this.selectedKeg = keg;
   }
   editKegDone() {
     this.selectedKeg = null;
+  }
+  pourKeg(keg : Keg) {
+    keg.pints --;
   }
 }

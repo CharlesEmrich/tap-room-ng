@@ -11,6 +11,7 @@ import { Keg } from './keg.model';
         <h3>{{currentKeg.alc}}% ABV</h3>
         <h3>{{currentKeg.pints}} pints remaining</h3>
         <button class="btn btn-info" (click)="selectKeg(currentKeg)">Edit</button>
+        <button class="btn btn-info" (click)="pour(currentKeg)">Pour</button>
       </div>
   `
 })
@@ -18,9 +19,12 @@ import { Keg } from './keg.model';
 export class KegListComponent {
   @Input() childKegList : Keg[];
   @Output() selectKegSender = new EventEmitter();
+  @Output() pourSender = new EventEmitter();
 
   selectKeg(keg : Keg) {
     this.selectKegSender.emit(keg);
   }
-
+  pour(keg : Keg) {
+    this.pourSender.emit(keg);
+  }
 }
