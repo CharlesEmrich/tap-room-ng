@@ -17,8 +17,8 @@ export class AppComponent {
   selectedKeg : Keg = null;
   masterKegList : Keg[] = [
     new Keg('Armadillo', 5, 'New West', 6.4),
-    new Keg('Spitfire', 6, 'Santiam', 6.4),
-    new Keg('Que Paso?', 5, 'Fat Head\'s/Ex Novo', 5.1)
+    new Keg('Spitfire', 4, 'Santiam', 4.1),
+    new Keg('Que Paso?', 5, 'Fat Head\'s/Ex Novo', 8.4)
   ];
   addKeg(keg : Keg) {
     this.masterKegList.push(keg);
