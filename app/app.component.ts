@@ -4,7 +4,11 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'app-root',
   template: `
-    <keg-list-component [childKegList]="masterKegList"></keg-list-component>
+    <h2 class="jumbotron text-center">A Bar</h2>
+    <div class="container">
+      <keg-new-component (formSubmitSender)="addKeg($event)"></keg-new-component>
+      <keg-list-component [childKegList]="masterKegList"></keg-list-component>
+    </div>
   `
 })
 
@@ -14,4 +18,8 @@ export class AppComponent {
     new Keg('Spitfire', 6, 'Santiam', 6.4),
     new Keg('Que Paso?', 5, 'Fat Head\'s/Ex Novo', 5.1)
   ];
+
+  addKeg(keg : Keg) {
+    this.masterKegList.push(keg);
+  }
 }

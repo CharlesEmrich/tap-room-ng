@@ -1,4 +1,3 @@
-
 import {Component} from '@angular/core';
 import {Keg} from './keg.model';
 
