@@ -30,9 +30,13 @@ export class AppComponent {
     this.selectedKeg = null;
   }
   pourPint(keg : Keg) {
-    keg.pints --;
+    if (keg.pints > 0) {
+      keg.pints --;
+    }
   }
   pourGrowler(keg : Keg) {
-    keg.pints -= 2;
+    if (keg.pints > 1) {
+      keg.pints -= 2;
+    }
   }
 }

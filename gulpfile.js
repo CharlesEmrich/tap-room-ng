@@ -74,7 +74,7 @@ gulp.task('serve', ['build'], () => {
   });
   gulp.watch(['resource/js/*.js'], ['jsBuild']);
   gulp.watch(['*.html'], ['htmlBuild']);
-  gulp.watch(['resources/styles/*.css', 'resources/styles/*.scss'], ['cssBuild']);
+  gulp.watch(['resources/styles/*.sass', 'resources/styles/*.scss'], ['cssBuild']);
   gulp.watch(['app/*.ts'], ['tsBuild']);
 });
 

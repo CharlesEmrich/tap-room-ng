@@ -9,7 +9,6 @@ import { Keg } from './keg.model';
       <option value="lowKegs">Kegs with Pints < 10</option>
     </select>
     <div class="well" *ngFor='let currentKeg of childKegList | lowPint:filterType'>
-    <div class="bg-fill" [style.width]="fillWidth(currentKeg)"></div>
       <h1>{{currentKeg.name}}</h1>
       <h1>{{currentKeg.brand}}</h1>
       <h2><span [style.color]="priceColor(currentKeg)">\${{currentKeg.price}}</span></h2>
@@ -18,6 +17,7 @@ import { Keg } from './keg.model';
       <button class="btn btn-info" (click)="selectKeg(currentKeg)">Edit</button>
       <button class="btn btn-info" (click)="pourPint(currentKeg)">Pour Pint</button>
       <button class="btn btn-info" (click)="pourGrowler(currentKeg)">Pour Growler</button>
+      <div class="bg-fill" [style.width]="fillWidth(currentKeg)"></div>
     </div>
   `
 })
