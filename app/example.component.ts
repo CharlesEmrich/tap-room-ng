@@ -1,6 +1,6 @@
 
 import {Component} from '@angular/core';
-import {Model} from './model.model';
+import {Keg} from './keg.model';
 
 @Component({
   selector: 'example-component',
@@ -10,5 +10,5 @@ import {Model} from './model.model';
 })
 
 export class ExampleComponent {
-  
+
 }
