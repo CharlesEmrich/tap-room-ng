@@ -8,7 +8,7 @@ import {Keg} from './keg.model';
 
 export class UniqueBrandPipe implements PipeTransform {
   transform(input : Keg[]) {
-    let output = [];
+    let output : string[] = [];
     for (let i = 0; i < input.length; i++) {
       if (output.indexOf(input[i].brand) === -1) {
         output.push(input[i].brand);

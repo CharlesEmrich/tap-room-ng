@@ -7,21 +7,22 @@ import {Keg} from './keg.model';
     <div *ngIf='childSelectedKeg'>
       <div class="form-group form-inline">
         <label>Name</label>
-        <input class="form-control" [(ngModel)]='childSelectedKeg.name' type="text">
+        <input class="form-control" #nameField [(ngModel)]='childSelectedKeg.name' type="text">
       </div>
       <div class="form-group form-inline">
         <label>Price</label>
-        <input class="form-control" [(ngModel)]='childSelectedKeg.price' type="text">
+        <input class="form-control" #priceField [(ngModel)]='childSelectedKeg.price' type="number">
       </div>
       <div class="form-group form-inline">
         <label>Brand</label>
-        <input class="form-control" [(ngModel)]='childSelectedKeg.brand' type="text">
+        <input class="form-control" #brandField [(ngModel)]='childSelectedKeg.brand' type="text">
       </div>
       <div class="form-group form-inline">
         <label>Alc%</label>
-        <input class="form-control" [(ngModel)]='childSelectedKeg.alc' type="text">
+        <input class="form-control" #alcField [(ngModel)]='childSelectedKeg.alc' type="number">
       </div>
-      <button class="btn btn-info" (click)="doneButtonClicked()">Done</button>
+      <div class="bg-warning" *ngIf="!fieldsTruthy(nameField.value, priceField.value, brandField.value, alcField.value)">Please leave all fields filled out.</div>
+      <button *ngIf="fieldsTruthy(nameField.value, priceField.value, brandField.value, alcField.value)" class="btn btn-info" (click)="doneButtonClicked()">Done</button>
     </div>
   `
 })
@@ -32,5 +33,8 @@ export class KegEditComponent {
 
   doneButtonClicked() {
     this.doneClickSender.emit();
+  }
+  fieldsTruthy(nameField : string, priceField : string, brandField : string, alcField : string) {
+    return nameField && parseInt(priceField) && brandField && parseInt(alcField);
   }
 }

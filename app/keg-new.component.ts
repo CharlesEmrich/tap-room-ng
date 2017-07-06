@@ -11,7 +11,7 @@ import {Keg} from './keg.model';
       </div>
       <div class="form-group form-inline">
         <label>Price</label>
-        <input class="form-control" #priceInput type="text">
+        <input class="form-control" #priceInput type="number">
       </div>
       <div class="form-group form-inline">
         <label>Brand</label>
@@ -19,7 +19,7 @@ import {Keg} from './keg.model';
       </div>
       <div class="form-group form-inline">
         <label>Alc%</label>
-        <input class="form-control" #alcInput type="text">
+        <input class="form-control" #alcInput type="number">
       </div>
       <button class="btn btn-info" (click)="formSubmit(nameInput.value, priceInput.value, brandInput.value, alcInput.value); nameInput.value=''; priceInput.value=''; brandInput.value=''; alcInput.value=''">Add New Keg</button>
     </div>
@@ -29,8 +29,10 @@ import {Keg} from './keg.model';
 export class KegNewComponent {
   @Output() formSubmitSender = new EventEmitter();
 
-  formSubmit(nameInput : string, priceInput : number, brandInput : string, alcInput : number) {
-    const emittedKeg = new Keg(nameInput, priceInput, brandInput, alcInput);
-    this.formSubmitSender.emit(emittedKeg);
+  formSubmit(nameInput : string, priceInput : string, brandInput : string, alcInput : string) {
+    if (nameInput && parseInt(priceInput) && brandInput && parseInt(alcInput)) {
+      const emittedKeg = new Keg(nameInput, parseInt(priceInput), brandInput, parseInt(alcInput));
+      this.formSubmitSender.emit(emittedKeg);
+    }
   }
 }
