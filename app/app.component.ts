@@ -8,7 +8,7 @@ import { Keg } from './keg.model';
     <div class="container">
       <keg-new-component *ngIf="false" (formSubmitSender)="addKeg($event)"></keg-new-component>
       <keg-edit-component [childSelectedKeg]="selectedKeg" (doneClickSender)="editKegDone()"></keg-edit-component>
-      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourPint($event)" (pourGrowlerSender)="pourGrowler($event)"></keg-list-component>
+      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourGlass($event)"></keg-list-component>
     </div>
   `
 })
@@ -29,14 +29,16 @@ export class AppComponent {
   editKegDone() {
     this.selectedKeg = null;
   }
-  pourPint(keg : Keg) {
-    if (keg.pints > 0) {
-      keg.pints --;
-    }
-  }
-  pourGrowler(keg : Keg) {
-    if (keg.pints > 1) {
+  pourGlass(order) {
+    const keg = order.keg;
+    const glassType = order.volume;
+
+    if (glassType === 'pint' && keg.pints > 0) {
+      keg.pints--;
+    } else if (glassType === 'growler' && keg.pints > 1) {
       keg.pints -= 2;
+    } else if (glassType === 'lgGrowler' && keg.pints > 3) {
+      keg.pints -= 4;
     }
   }
 }

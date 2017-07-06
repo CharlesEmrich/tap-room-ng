@@ -15,8 +15,9 @@ import { Keg } from './keg.model';
       <h3><span [style.background-color]="alcColor(currentKeg)">{{currentKeg.alc}}% ABV</span></h3>
       <h3>{{currentKeg.pints}} pints remaining</h3>
       <button class="btn btn-info" (click)="selectKeg(currentKeg)">Edit</button>
-      <button class="btn btn-info" (click)="pourPint(currentKeg)">Pour Pint</button>
-      <button class="btn btn-info" (click)="pourGrowler(currentKeg)">Pour Growler</button>
+      <button class="btn btn-info" (click)="sendOrder(currentKeg, 'pint')">Pour Pint (16 oz)</button>
+      <button class="btn btn-info" (click)="sendOrder(currentKeg, 'growler')">Pour Growler (32 oz)</button>
+      <button class="btn btn-info" (click)="sendOrder(currentKeg, 'lgGrowler')">Pour Large Growler (64 oz)</button>
       <div class="bg-fill" [style.width]="fillWidth(currentKeg)"></div>
     </div>
   `
@@ -26,17 +27,14 @@ export class KegListComponent {
   @Input() childKegList : Keg[];
   @Output() selectKegSender = new EventEmitter();
   @Output() pourSender = new EventEmitter();
-  @Output() pourGrowlerSender = new EventEmitter();
   filterType : string = 'allKegs';
 
   selectKeg(keg : Keg) {
     this.selectKegSender.emit(keg);
   }
-  pourPint(keg : Keg) {
-    this.pourSender.emit(keg);
-  }
-  pourGrowler(keg : Keg) {
-    this.pourGrowlerSender.emit(keg);
+  sendOrder(keg : Keg, glassType: string) {
+    const order = {keg: keg, volume: glassType};
+    this.pourSender.emit(order);
   }
   priceColor(keg : Keg) {
     return keg.price < 5 ? "green" : "red";
