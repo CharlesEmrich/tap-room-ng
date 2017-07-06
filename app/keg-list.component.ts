@@ -13,6 +13,8 @@ import { Keg } from './keg.model';
       <option value="allBrands">All Brands</option>
       <option *ngFor='let currentBrand of childKegList | uniqueBrand' [value]='currentBrand'>{{currentBrand}}</option>
     </select>
+    <button class="btn btn-info" *ngIf="!childHappyHour" (click)="sendHappyHour()">Happy Hour!</button>
+    <button class="btn btn-info" *ngIf="childHappyHour" (click)="endHappyHour()">Sad Hour!</button>
   </div>
   <div class="row form-group">
     <div class="well" *ngFor='let currentKeg of childKegList | lowPint:filterType | byBrand:brandFilter'>
@@ -33,7 +35,7 @@ import { Keg } from './keg.model';
         </select>
         <button class='btn btn-info' (click)='sendSale(currentKeg, salePercentage.value)'>Start Sale</button>
       </div>
-      <button class='btn btn-info' *ngIf='currentKeg.onSale' (click)='sendSaleEnd(currentKeg)'>End Sale</button>
+      <button class='btn btn-info' *ngIf='currentKeg.onSale && !childHappyHour' (click)='sendSaleEnd(currentKeg)'>End Sale</button>
       <div class="bg-fill" [style.width]="fillWidth(currentKeg)"></div>
     </div>
   </div>
@@ -42,10 +44,13 @@ import { Keg } from './keg.model';
 
 export class KegListComponent {
   @Input() childKegList : Keg[];
+  @Input() childHappyHour : boolean;
   @Output() selectKegSender = new EventEmitter();
   @Output() pourSender = new EventEmitter();
   @Output() saleSender = new EventEmitter();
   @Output() saleEndSender = new EventEmitter();
+  @Output() happyHourSender = new EventEmitter();
+  @Output() happyHourEnder = new EventEmitter();
   filterType : string = 'allKegs';
   brandFilter : string = 'allBrands';
 
@@ -78,5 +83,11 @@ export class KegListComponent {
   }
   sendSaleEnd(keg : Keg) {
     this.saleEndSender.emit(keg);
+  }
+  sendHappyHour() {
+    this.happyHourSender.emit();
+  }
+  endHappyHour() {
+    this.happyHourEnder.emit();
   }
 }

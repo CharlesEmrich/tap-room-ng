@@ -8,13 +8,22 @@ import { Keg } from './keg.model';
     <div class="container">
       <keg-new-component *ngIf="false" (formSubmitSender)="addKeg($event)"></keg-new-component>
       <keg-edit-component [childSelectedKeg]="selectedKeg" (doneClickSender)="editKegDone()"></keg-edit-component>
-      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourGlass($event)" (saleSender)='startSale($event)' (saleEndSender)='endSale($event)'></keg-list-component>
+      <keg-list-component [childKegList]="masterKegList"
+                          [childHappyHour]="masterHappyHour"
+                          (selectKegSender)="editKeg($event)"
+                          (pourSender)="pourGlass($event)"
+                          (saleSender)="startSale($event)"
+                          (saleEndSender)="endSale($event)"
+                          (happyHourSender)="startHappyHour()"
+                          (happyHourEnder)="endHappyHour()">
+      </keg-list-component>
     </div>
   `
 })
 
 export class AppComponent {
   selectedKeg : Keg = null;
+  masterHappyHour : boolean = false;
   masterKegList : Keg[] = [
     new Keg('Armadillo', 5, 'New West', 6.4),
     new Keg('Spitfire', 4, 'Santiam', 4.1),
@@ -50,5 +59,19 @@ export class AppComponent {
   endSale(keg : Keg) {
     keg.onSale = false;
     keg.salePrice = keg.price;
+  }
+  startHappyHour() {
+    this.masterHappyHour = true;
+    this.masterKegList.forEach((keg) => {
+      keg.onSale = true;
+      keg.salePrice = keg.price * 0.75;
+    });
+  }
+  endHappyHour() {
+    this.masterHappyHour = false;
+    this.masterKegList.forEach((keg) => {
+      keg.onSale = false;
+      keg.salePrice = keg.price;
+    });
   }
 }
