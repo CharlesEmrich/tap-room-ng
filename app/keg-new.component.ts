@@ -4,7 +4,7 @@ import {Keg} from './keg.model';
 @Component({
   selector: 'keg-new-component',
   template: `
-    <div>
+    <div class="row">
       <div class="form-group form-inline">
         <label>Name</label>
         <input class="form-control" #nameInput type="text">

@@ -6,9 +6,9 @@ import { Keg } from './keg.model';
   template: `
     <h2 class="jumbotron text-center">A Bar</h2>
     <div class="container">
-      <keg-new-component *ngIf="true" (formSubmitSender)="addKeg($event)"></keg-new-component>
+      <keg-new-component *ngIf="false" (formSubmitSender)="addKeg($event)"></keg-new-component>
       <keg-edit-component [childSelectedKeg]="selectedKeg" (doneClickSender)="editKegDone()"></keg-edit-component>
-      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourGlass($event)"></keg-list-component>
+      <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourGlass($event)" (saleSender)='startSale($event)' (saleEndSender)='endSale($event)'></keg-list-component>
     </div>
   `
 })
@@ -40,5 +40,15 @@ export class AppComponent {
     } else if (glassType === 'lgGrowler' && keg.pints > 3) {
       keg.pints -= 4;
     }
+  }
+  startSale(object) {
+    const keg = object.keg;
+    const percentSale = object.percent;
+    keg.onSale = true;
+    keg.salePrice = keg.price * ((100 - percentSale) / 100);
+  }
+  endSale(keg : Keg) {
+    keg.onSale = false;
+    keg.salePrice = keg.price;
   }
 }

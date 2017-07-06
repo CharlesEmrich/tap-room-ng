@@ -4,7 +4,7 @@ import {Keg} from './keg.model';
 @Component({
   selector: 'keg-edit-component',
   template: `
-    <div *ngIf='childSelectedKeg'>
+    <div  class="row" *ngIf='childSelectedKeg'>
       <div class="form-group form-inline">
         <label>Name</label>
         <input class="form-control" #nameField [(ngModel)]='childSelectedKeg.name' type="text">
