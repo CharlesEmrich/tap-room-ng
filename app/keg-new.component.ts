@@ -21,7 +21,7 @@ import {Keg} from './keg.model';
         <label>Alc%</label>
         <input class="form-control" #alcInput type="text">
       </div>
-      <button class="btn btn-info" (click)="formSubmit(nameInput.value, priceInput.value, brandInput.value, alcInput.value)">Add New Keg</button>
+      <button class="btn btn-info" (click)="formSubmit(nameInput.value, priceInput.value, brandInput.value, alcInput.value); nameInput.value=''; priceInput.value=''; brandInput.value=''; alcInput.value=''">Add New Keg</button>
     </div>
   `
 })

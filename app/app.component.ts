@@ -6,7 +6,7 @@ import { Keg } from './keg.model';
   template: `
     <h2 class="jumbotron text-center">A Bar</h2>
     <div class="container">
-      <keg-new-component *ngIf="false" (formSubmitSender)="addKeg($event)"></keg-new-component>
+      <keg-new-component *ngIf="true" (formSubmitSender)="addKeg($event)"></keg-new-component>
       <keg-edit-component [childSelectedKeg]="selectedKeg" (doneClickSender)="editKegDone()"></keg-edit-component>
       <keg-list-component [childKegList]="masterKegList" (selectKegSender)="editKeg($event)" (pourSender)="pourGlass($event)"></keg-list-component>
     </div>

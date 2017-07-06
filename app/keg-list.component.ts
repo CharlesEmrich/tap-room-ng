@@ -8,7 +8,11 @@ import { Keg } from './keg.model';
       <option value="allKegs">All Kegs</option>
       <option value="lowKegs">Kegs with Pints < 10</option>
     </select>
-    <div class="well" *ngFor='let currentKeg of childKegList | lowPint:filterType'>
+    <select (change)="onBrandChange($event.target.value)">
+      <option value="allBrands">All Brands</option>
+      <option *ngFor='let currentBrand of childKegList | uniqueBrand' [value]='currentBrand'>{{currentBrand}}</option>
+    </select>
+    <div class="well" *ngFor='let currentKeg of childKegList | lowPint:filterType | byBrand:brandFilter'>
       <h1>{{currentKeg.name}}</h1>
       <h1>{{currentKeg.brand}}</h1>
       <h2><span [style.color]="priceColor(currentKeg)">\${{currentKeg.price}}</span></h2>
@@ -28,6 +32,7 @@ export class KegListComponent {
   @Output() selectKegSender = new EventEmitter();
   @Output() pourSender = new EventEmitter();
   filterType : string = 'allKegs';
+  brandFilter : string = 'allBrands';
 
   selectKeg(keg : Keg) {
     this.selectKegSender.emit(keg);
@@ -44,6 +49,9 @@ export class KegListComponent {
   }
   onChange(menuOption) {
     this.filterType = menuOption;
+  }
+  onBrandChange(menuOption) {
+    this.brandFilter = menuOption;
   }
   fillWidth(keg : Keg) {
     return `${100 * (keg.pints / 124)}%`;
